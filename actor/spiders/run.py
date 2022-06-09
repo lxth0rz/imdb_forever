@@ -18,11 +18,11 @@ class ImdbMoviesByCompanyNameScraper(Spider):
                'Connection': 'keep-alive',
                'Upgrade-Insecure-Requests': '1',}
 
-    company_name = 'Netflix'  # required
-    company_id = ''           # optional -- setting the id will jump directly to the company overview page and will ignore all other options
-    type = 'Production'       # optional [Production/Distributor]  -- default is Production
-    country = 'us'            # optional
-    testing = False
+    company_name = apify.getInput('CompanyName')  # required
+    company_id = apify.getInput('CompanyId')      # optional -- will ignore company name, id and type.
+    type = apify.getInput('Type')                 # optional [Production/Distributor]  -- default is Production
+    country = apify.getInput('Country')           # optional
+    testing = apify.getInput('Testing')
 
     imdb_by_company_base_url = 'https://www.imdb.com/search/title/?companies={0}'
     imdb_search_for_company_url = 'https://www.imdb.com/find?s=co&q={0}&ref_=nv_sr_sm'

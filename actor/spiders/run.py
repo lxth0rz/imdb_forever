@@ -21,7 +21,7 @@ class ImdbMoviesByCompanyNameScraper(Spider):
     company_name = apify.getInput('CompanyName')  # required
     company_id = apify.getInput('CompanyId')      # optional -- will ignore company name, id and type.
     type = apify.getInput('Type')                 # optional [Production/Distributor]  -- default is Production
-    country = apify.getInput('Country')           # optional
+    country = apify.getInput('Country')           #  optional
     testing = apify.getInput('Testing')
 
     imdb_by_company_base_url = 'https://www.imdb.com/search/title/?companies={0}'

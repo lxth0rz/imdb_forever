@@ -1,3 +1,6 @@
+Describe how to use it here
+---------------------------------
+
 # Scrapy Executor
 
 This actor allows you to run web spiders written in Python

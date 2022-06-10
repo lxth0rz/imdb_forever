@@ -14,6 +14,7 @@ RUN \
   npm i -g npm@^6 && \
   rm -rf /var/lib/apt/lists/* \
   pip install scrapy
+  pip install apify-client
 
 COPY . ./
 

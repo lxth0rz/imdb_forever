@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
 import re
 import apify
+import scrapy
 from scrapy import Spider
 from urllib.parse import urljoin
 from scrapy.http.request import Request

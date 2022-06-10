@@ -24,7 +24,7 @@ class ImdbMoviesByCompanyNameScraper(Spider):
     company_id = ''      # optional -- will ignore company name, id and type.
     company_type = ''    # optional [Production/Distributor]  -- default is Production
     country = ''         # optional
-    testing = ''
+    testing = False
 
     imdb_by_company_base_url = 'https://www.imdb.com/search/title/?companies={0}'
     imdb_search_for_company_url = 'https://www.imdb.com/find?s=co&q={0}&ref_=nv_sr_sm'
@@ -64,10 +64,18 @@ class ImdbMoviesByCompanyNameScraper(Spider):
         actor_input = default_kv_store_client.get_record(os.environ['APIFY_INPUT_KEY'])['value']
 
         self.company_name = actor_input["CompanyName"]
-        self.company_id = actor_input["CompanyId"]
+        self.company_id = actor_input["CompanyId"] if 'CompanyId' in actor_input else ''
         self.company_type = actor_input["Type"]
         self.country = actor_input["Country"]
-        self.Testing = actor_input["Testing"]
+        self.testing = actor_input["Testing"]
+
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+        print(actor_input["Testing"])
+        print(actor_input["CompanyName"])
+        #print(actor_input["CompanyId"])
+        print(actor_input["Type"])
+        print(actor_input["Country"])
+        print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
 
         if self.company_id != '':
             start_url = self.imdb_by_company_base_url.format(self.company_id)

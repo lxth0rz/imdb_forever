@@ -23,6 +23,7 @@
             "type": "string",
             "description": "Alternatively, you can get the company id from the IMDB URL for ex:https://www.imdb.com/search/title/?companies=co0144901 - Note that setting this input will ignore all other settings like [CompanyName, Type and Country]",
             "prefill": "co0144901",
+            "default": "",
             "editor": "textfield"
         },
         "Type": {

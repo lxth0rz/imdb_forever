@@ -13,7 +13,7 @@ RUN \
   pip install -U pip && pip install pipenv && \
   npm i -g npm@^6 && \
   rm -rf /var/lib/apt/lists/* \
-  pip install scrapy
+  pip install scrapy \
   pip install apify-client
 
 COPY . ./

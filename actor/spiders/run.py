@@ -20,10 +20,7 @@ class ImdbMoviesByCompanyNameScraper(Spider):
                'Connection': 'keep-alive',
                'Upgrade-Insecure-Requests': '1', }
 
-    company_name = ''    # required
-    company_id = ''      # optional -- will ignore company name, id and type.
-    company_type = ''    # optional [Production/Distributor]  -- default is Production
-    country = ''         # optional
+    company_id = ''      # required
     testing = False
 
     imdb_by_company_base_url = 'https://www.imdb.com/search/title/?companies={0}'
@@ -63,54 +60,14 @@ class ImdbMoviesByCompanyNameScraper(Spider):
         print('Loading input')
         actor_input = default_kv_store_client.get_record(os.environ['APIFY_INPUT_KEY'])['value']
 
-        self.company_name = actor_input["CompanyName"]
-        self.company_id = actor_input["CompanyId"] if 'CompanyId' in actor_input else ''
-        self.company_type = actor_input["Type"]
-        self.country = actor_input["Country"]
+        self.company_id = actor_input["CompanyId"]
         self.testing = actor_input["Testing"]
-
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-        print(actor_input["Testing"])
-        print(actor_input["CompanyName"])
-        #print(actor_input["CompanyId"])
-        print(actor_input["Type"])
-        print(actor_input["Country"])
-        print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
 
         if self.company_id != '':
             start_url = self.imdb_by_company_base_url.format(self.company_id)
             yield Request(url=start_url,
                           headers=self.headers,
                           callback=self.parse_overview_page)
-        else:
-            find_company_url = self.imdb_search_for_company_url.format(self.company_name.lower())
-            yield Request(url=find_company_url,
-                          headers=self.headers,
-                          callback=self.find_company_overview)
-
-    def find_company_overview(self, response):
-
-        target_url = ''
-        rows = response.xpath(self.xpath_dict['companies_rows'])
-        for row in rows:
-            link = row.xpath(self.xpath_dict['company_link'])
-            link = link.extract()[0].strip()
-            link = urljoin(response.url, link)
-            full_row_text = row.xpath(self.xpath_dict['company_row_full_text']).extract()
-            full_row_text = [x.strip() for x in full_row_text]
-            full_row_text = [x for x in full_row_text if x != '']
-            full_row_text = ' '.join(full_row_text)
-            full_row_text = full_row_text.lower()
-            if self.company_name.lower() in full_row_text and "[" + self.country.lower() + "]" in full_row_text and self.company_type.lower() in full_row_text:
-                target_url = link
-                break
-
-        if target_url != '':
-            yield Request(url=target_url,
-                          headers=self.headers,
-                          callback=self.parse_overview_page)
-        else:
-            print(self.errors['CompanyNotFound'])
 
     def parse_overview_page(self, response):
 

@@ -10,39 +10,13 @@
             "prefill": "import scrapy\nimport apify\n \nclass MySpider(scrapy.Spider):\n \tname = 'apifySpider'\n \n \tdef start_requests(self):\n \t\turls = [\n \t\t\t'https://apify.com',\n \t\t\t'https://apify.com/store',\n \t\t]\n \t\tfor url in urls:\n \t\t\tyield scrapy.Request(url=url, callback=self.parse)\n \n \tdef parse(self, response):\n \t\turl = response.url\n \t\ttitle = response.css('title::text').get()\n \t\toutput = {\n \t\t\t'url': url,\n \t\t\t'title': title\n \t\t}\n \t\tapify.pushData(output)",
             "editor": "python"
         },
-        "CompanyName": {
-            "title": "Company Name",
-            "type": "string",
-            "description": "The Production or distributor company name.",
-            "prefill": "Netflix",
-            "editor": "textfield"
-
-        },
         "CompanyId": {
             "title": "Company ID",
             "type": "string",
-            "description": "Alternatively, you can get the company id from the IMDB URL for ex:https://www.imdb.com/search/title/?companies=co0144901 - Note that setting this input will ignore all other settings like [CompanyName, Type and Country]",
+            "description": "Get the company id from the IMDB URL for ex:https://www.imdb.com/search/title/?companies=co0144901",
             "prefill": "co0144901",
             "default": "",
             "editor": "textfield"
-        },
-        "Type": {
-            "title": "Type",
-            "type": "string",
-            "description": "Decide you would like to scrape production or distributor company",
-            "editor": "select",
-            "default": "Production",
-            "enum": ["Production", "Distributor"],
-            "enumTitles": ["Production", "Distributor"]
-        },
-        "Country": {
-            "title": "Country",
-            "type": "string",
-            "description": "Select the target country of production or distributing",
-            "editor": "select",
-            "default": "us",
-            "enum": ["us", "de", "fr"],
-            "enumTitles": ["USA", "Germany", "France"]
         },
         "Testing": {
                     "title": "Testing",
@@ -58,5 +32,5 @@
             "editor": "proxy"
         }
     },
-    "required": ["CompanyName"]
+    "required": ["CompanyId"]
 }

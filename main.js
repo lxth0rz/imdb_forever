@@ -9,11 +9,13 @@ Apify.getValue('INPUT').then((input) => {
 
   if (input != null) {
 
+    /* Disable scrapyCode input
     // build spider
     fs.writeFileSync('./actor/spiders/run.py', input.scrapyCode, (err) => {
         if (err) console.log(err);
         console.log('Successfully built scrapy spider.');
     });
+    */
 
     // configure proxy
     var useProxy = false;

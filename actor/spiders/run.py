@@ -20,11 +20,10 @@ class ImdbMoviesByCompanyNameScraper(Spider):
                'Connection': 'keep-alive',
                'Upgrade-Insecure-Requests': '1', }
 
-    company_id = ''      # required
-    testing = False
+    company_id = ''      # required input
+    testing = False      # optional for testing - scraping only 50 movies
 
     imdb_by_company_base_url = 'https://www.imdb.com/search/title/?companies={0}'
-    imdb_search_for_company_url = 'https://www.imdb.com/find?s=co&q={0}&ref_=nv_sr_sm'
 
     regex_dict = {'movie_id': 'tt\d+'}
 
@@ -63,6 +62,7 @@ class ImdbMoviesByCompanyNameScraper(Spider):
         # Get the value of the actor input and print it
         self.logger.info('Loading input...')
         actor_input = default_kv_store_client.get_record(os.environ['APIFY_INPUT_KEY'])['value']
+        self.logger.info(actor_input)
 
         self.company_id = actor_input["CompanyId"]
         self.testing = actor_input["Testing"]
@@ -72,11 +72,15 @@ class ImdbMoviesByCompanyNameScraper(Spider):
             yield Request(url=start_url,
                           headers=self.headers,
                           callback=self.parse_overview_page)
+        else:
+            self.logger.error('Company ID is empty.')
 
     def parse_overview_page(self, response):
 
         movies = response.xpath(self.xpath_dict['movie_box'])
-        if movies and len(movies) > 0:
+        if not movies or len(movies) == 0:
+            self.logger.error("Cannot find movies boxes. Possibly a change in DOM or scraper got blocked!, please contact the developer.")
+        else:
             for movie in movies:
 
                 title = movie.xpath(self.xpath_dict['title'])

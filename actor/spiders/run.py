@@ -57,7 +57,7 @@ class ImdbMoviesByCompanyNameScraper(Spider):
         default_kv_store_client = client.key_value_store(os.environ['APIFY_DEFAULT_KEY_VALUE_STORE_ID'])
 
         # Get the value of the actor input and print it
-        print('Loading input')
+        print('Loading input...')
         actor_input = default_kv_store_client.get_record(os.environ['APIFY_INPUT_KEY'])['value']
 
         self.company_id = actor_input["CompanyId"]

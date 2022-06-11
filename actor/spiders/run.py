@@ -1,7 +1,7 @@
 import re
 import os
 import apify
-import scrapy
+import logging
 from scrapy import Spider
 from urllib.parse import urljoin
 from apify_client import ApifyClient
@@ -48,7 +48,11 @@ class ImdbMoviesByCompanyNameScraper(Spider):
 
     errors = {'CompanyNotFound': 'Cannot find company, type and country!'}
 
+    logger = None
+
     def start_requests(self):
+
+        self.logger = logging.getLogger()
 
         # Initialize the main ApifyClient instance
         client = ApifyClient(os.environ['APIFY_TOKEN'], api_url=os.environ['APIFY_API_BASE_URL'])
@@ -57,7 +61,7 @@ class ImdbMoviesByCompanyNameScraper(Spider):
         default_kv_store_client = client.key_value_store(os.environ['APIFY_DEFAULT_KEY_VALUE_STORE_ID'])
 
         # Get the value of the actor input and print it
-        print('Loading input...')
+        self.logger.info('Loading input...')
         actor_input = default_kv_store_client.get_record(os.environ['APIFY_INPUT_KEY'])['value']
 
         self.company_id = actor_input["CompanyId"]

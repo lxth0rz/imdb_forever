@@ -18,16 +18,16 @@ The actor has the following input options:
 It might sound complicated, but it is too easy...
 
 1. First, from the main IMDB search bar, select companies...
-![](imgs/Screenshot 2022-06-11 213420.png)
+![](https://github.com/lxth0rz/imdb_forever/blob/main/imgs/step_1.png)
 
 2. Then, type the name of the company...
-![](imgs/Screenshot 2022-06-11 213610.png)
+![](https://github.com/lxth0rz/imdb_forever/blob/main/imgs/step_2.png)
 
 3. Click the search icon, the pick the company you would like to scrape their title from the results...
-![](imgs/Screenshot 2022-06-11 213637.png)
+![](https://github.com/lxth0rz/imdb_forever/blob/main/imgs/step_3.png)
 
 4. Finally, get the company id from the URL. The id in this example is:**co0047120**.
-![](imgs/Screenshot 2022-06-11 213804.png)
+![](https://github.com/lxth0rz/imdb_forever/blob/main/imgs/step_4.png)
 
 ### Results
 

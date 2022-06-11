@@ -1,90 +1,57 @@
-Describe how to use it herea
----------------------------------
+# IMDB Titles Scraper By Company
 
-# Scrapy Executor
-
-This actor allows you to run web spiders written in Python
-and the [Scrapy framework](https://scrapy.org) on the [Apify](https://apify.com/) platform.
-Executing a spider is as simple as copy-pasting your Scrapy code into the actor's input.
-For multi-file Scrapy spiders, see the bottom of this readme.
-
-Please note that the actor is experimental and it might change in the future.
+This actor allows you to scrape titles from IMDB that created or disturbed by a specific company. All you need to do in 
+order to start the scraper is to get the company id which is the main input "for now" in the scraper.
 
 ## Input configuration
 
 The actor has the following input options:
 
-- **Scrapy code** - Paste your Python source code with Scrapy into this field.
+- **Company ID** - Paste the company id you get from IMDB into this field.
+- **Testing** - Optionally, select yes to scrape only the first 50 movies.
 - **Proxy** - Optionally, select a proxy to be used by the actor,
   in order to avoid IP address-based blocking by the target website.
   The actor automatically executes all the Scrapy's HTTP(S) requests through the proxy.
 
-## Storing data on Apify cloud
+## How to get the company id
 
-To store your Scrapy items in Apify's [Dataset](https://apify.com/docs/storage#dataset)
-or [Key-value store](https://apify.com/docs/storage#key-value-store) cloud storages,
-you can use the [`apify`](https://pypi.org/project/apify/) Python package.
-All the methods are available for actors running both locally as well as on the Apify platform. 
+It might sound complicated, but it is too easy...
 
-First, import the package by adding the following command to the top of your source file:
+1. First, from the main IMDB search bar, select companies...
+![](imgs/Screenshot 2022-06-11 213420.png)
 
-```python
-import apify
+2. Then, type the name of the company...
+![](imgs/Screenshot 2022-06-11 213610.png)
+
+3. Click the search icon, the pick the company you would like to scrape their title from the results...
+![](imgs/Screenshot 2022-06-11 213637.png)
+
+4. Finally, get the company id from the URL. The id in this example is:**co0047120**.
+![](imgs/Screenshot 2022-06-11 213804.png)
+
+### Results
+
+Each record represent a title. The following fields is the current data you will get from the scraper...
+
+```json
+{
+    "id": "tt4574334",
+    "title": "Stranger Things",
+    "year": "2016–",
+    "certificate": "15",
+    "runtime": "51 min",
+    "genre": "Drama, Fantasy, Horror",
+    "rating": "8.7",
+    "plot": "When a young boy disappears, his mother, a police chief and his friends must confront terrifying supernatural forces in order to get him back.",
+    "stars": "Millie Bobby Brown| Finn Wolfhard| Winona Ryder| David Harbour",
+    "votes": "1,031,928",
+    "url": "https://www.imdb.com/title/tt4574334/",
+    "poster_url": "https://m.media-amazon.com/images/M/MV5BODZlYjQ4NzYtZTg1MC00NGY4LTg4NjQtNGE3ZjRkMjk3YjMyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_UY98_CR5,0,67,98_AL_.jpg",
+    "big_poster_url": "https://m.media-amazon.com/images/M/MV5BODZlYjQ4NzYtZTg1MC00NGY4LTg4NjQtNGE3ZjRkMjk3YjMyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SY1000_CR0,0,674,1000_AL_.jpg"
+  }
 ```
 
-To push your scraped data to the Dataset associated with the actor run, use the `pushData()` method:
-
-```python
-apify.pushData(item)
-```
-
-Note that Datasets are useful for storing large tabular results, such as a list of products from an e-commerce site.
-
-To interact with the default Key-value store associated with the actor run,
-use the `setValue()`, `getValue()`, and `deleteValue()` methods:
-
-```python
-apify.setValue('foo.txt', 'bar')
-apify.getValue('foo.txt')
-apify.deleteValue('foo.txt')
-```
-
-Key-value stores are useful for storing files, e.g. screenshots, PDFs of crawler state.
-
-
-## Multi-file Scrapy spiders
-
-If your Scrapy spider contains multiple source code or configuration files,
-or you want to configure Scrapy settings, pipelines or middlewares,
-you can download the source code of this actor, import your files into it
-and push it to the Apify cloud for execution.
-
-Before you start, make sure you have Python development environment set up, and [NPM](https://www.npmjs.com/package/npm)
-and [Apify CLI](https://apify.com/docs/cli) installed on your computer.
-
-Here are instructions:
-
-1. Clone the [GitHub repository](https://github.com/apifytech/actor-scrapy-executor) with the source code of this actor:
-   ```
-   git clone https://github.com/apifytech/actor-scrapy-executor
-   ```
-2. Go to the repository directory and install NPM packages:
-   ```
-   cd actor-scrapy-executor
-   npm install
-   ```
-3. Copy your spider(s) into the `actor/spiders/` directory.
-4. Make any necessary changes to files in the the `actor/` directory, including `items.py`, `middlewares.py`, `pipelines.py` or `settings.py`.
-5. Run the actor locally on your computer and test that it works:
-   ```
-   apify run
-   ```
-6. If everything works fine, upload the actor to the Apify platform, so that you can run it in the cloud:
-   ```
-   apify push
-   ```
-
-And that's it!
+And That's it for now!
 
 If you have any problem or anything does not work,
-please file an [issue on GitHub](https://github.com/apifytech/actor-scrapy-executor/issues).
+please file an [issue on Apify](https://console.apify.com/actors/LWCaRh1QoRdiI8siz#/issues).

@@ -13,21 +13,21 @@ The actor has the following input options:
   in order to avoid IP address-based blocking by the target website.
   The actor automatically executes all the Scrapy's HTTP(S) requests through the proxy.
 
-## How to get the company id
+## How to get the Company ID?
 
 It might sound complicated, but it is too easy...
 
-1. First, from the main IMDB search bar, select companies...
-![](https://github.com/lxth0rz/imdb_forever/blob/main/imgs/step_1.png)
+1. First, from the main IMDB search bar, select Companies...
+![](https://raw.githubusercontent.com/lxth0rz/imgs_proc/main/step_1.png)
 
 2. Then, type the name of the company...
-![](https://github.com/lxth0rz/imdb_forever/blob/main/imgs/step_2.png)
+![](https://github.com/lxth0rz/imgs_proc/blob/main/step_2.png?raw=true)
 
 3. Click the search icon, the pick the company you would like to scrape their title from the results...
-![](https://github.com/lxth0rz/imdb_forever/blob/main/imgs/step_3.png)
+![](https://github.com/lxth0rz/imgs_proc/blob/main/step_3.png?raw=true)
 
-4. Finally, get the company id from the URL. The id in this example is:**co0047120**.
-![](https://github.com/lxth0rz/imdb_forever/blob/main/imgs/step_4.png)
+4. Finally, get the company id from the URL. The id in this example is: **co0047120**.
+![](https://github.com/lxth0rz/imgs_proc/blob/main/step_4.png?raw=true/step_4.png)
 
 ### Results
 

@@ -36,7 +36,7 @@ It might sound complicated, but it is too easy...
 
    ![](https://github.com/lxth0rz/imgs_proc/blob/main/step_4.png?raw=true/step_4.png)
 
-### Results
+## Results:
 
 Each record represent a title. The following fields is the current data you will get from the scraper...
 

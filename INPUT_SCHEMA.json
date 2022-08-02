@@ -7,7 +7,7 @@
             "title": "Company ID",
             "type": "string",
             "description": "Get the company id from the IMDB URL for ex:https://www.imdb.com/search/title/?companies=co0144901",
-            "prefill": "co0144901",
+            "prefill": "co0591889",
             "default": "",
             "editor": "textfield"
         },

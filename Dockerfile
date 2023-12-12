@@ -1,4 +1,4 @@
-FROM python:stretch
+FROM python:buster
 
 RUN \
   apt-get update && \
